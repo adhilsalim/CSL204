@@ -44,10 +44,10 @@ void sort(process p[], int n)
 
 void print(process p[], int n)
 {
-    printf("Process ID\tArrival Time\tBurst Time\n");
+    printf("Process ID\tArrival Time\tBurst Time\nCompletion Time\tTurn Around Time\tWaiting Time\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%d\t\t%d\t\t%d\n", p[i].processId, p[i].arrivalTime, p[i].burstTime);
+        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
     }
 }
 
