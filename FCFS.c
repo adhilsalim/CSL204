@@ -94,7 +94,45 @@ void calculateAverageWaitingTime(process p[], int n)
         sum += p[i].waitingTime;
     }
 
-    printf("Average waiting time = %.2f\n", sum / n);
+    printf("\nAverage waiting time = %.2f\n", sum / n);
+}
+
+void printGanttChart(process p[], int n)
+{
+    printf("\nGantt Chart\n");
+
+    for (int i = 0; i < p[n - 1].completionTime * 5; i++)
+    {
+        printf("-");
+    }
+
+    printf("\n|");
+
+    for (int i = 0; i <= p[n - 1].completionTime; i++)
+    {
+        for (int i = 0; i < n; i++)
+        {
+            if (p[i].arrivalTime == i)
+            {
+                printf("P%d", p[i].processId);
+            }
+            else
+            {
+                printf(" ");
+            }
+            if (i == p[0].completionTime)
+            {
+                printf("|");
+            }
+        }
+    }
+
+    printf("\n");
+
+    for (int i = 0; i < p[n - 1].completionTime * 5; i++)
+    {
+        printf("-");
+    }
 }
 
 void main()
@@ -114,5 +152,5 @@ void main()
     calculateAverageWaitingTime(p, n);
 
     print(p, n);
-    // printGanttChart(p, n);
+    printGanttChart(p, n);
 }
