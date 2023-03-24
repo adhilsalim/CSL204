@@ -15,13 +15,13 @@ void getProcessDetails(process p[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        printf("\nEnter the id of process: ");
+        printf("\nEnter the id of process %d: ", i + 1);
         scanf("%d", &p[i].processId);
 
-        printf("Enter the arrival time of process: ");
+        printf("Enter the arrival time of P%d: ", p[i].processId);
         scanf("%d", &p[i].arrivalTime);
 
-        printf("Enter the burst time of process: ");
+        printf("Enter the burst time of P%d: ", p[i].processId);
         scanf("%d", &p[i].burstTime);
     }
 }
@@ -44,10 +44,10 @@ void sort(process p[], int n)
 
 void print(process p[], int n)
 {
-    printf("Process ID\tArrival Time\tBurst Time");
+    printf("Process ID\tArrival Time\tBurst Time\n");
     for (int i = 0; i < n; i++)
     {
-        printf("%d\t\t%d\t\t%d", p[i].processId, p[i].arrivalTime, p[i].burstTime);
+        printf("%d\t\t%d\t\t%d\n", p[i].processId, p[i].arrivalTime, p[i].burstTime);
     }
 }
 
@@ -59,8 +59,13 @@ void main()
 
     process p[n];
 
-    printf("Enter the process details: ");
     getProcessDetails(p, n);
     sort(p, n);
     print(p, n);
+
+    calculateCompletionTime(p, n);
+    calculateTurnAroundTime(p, n);
+    calculateWaitingTime(p, n);
+    calculateAverageWaitingTime(p, n);
+    printGanttChart(p, n);
 }
