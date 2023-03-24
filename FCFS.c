@@ -20,7 +20,7 @@ void calculateCompletionTime(process[], int);
 void calculateTurnAroundTime(process[], int);
 void calculateWaitingTime(process[], int);
 void calculateAverageWaitingTime(process[], int);
-bool thisArrivalTimeFound(int, process[], int);
+bool thisArrivalTimeFound(float, process[], int);
 
 void getProcessDetails(process p[], int n)
 {
@@ -108,11 +108,13 @@ void calculateAverageWaitingTime(process p[], int n)
     printf("\nAverage waiting time = %.2f\n", sum / n);
 }
 
-bool thisArrivalTimeFound(int time, process p[], int n)
+bool thisArrivalTimeFound(float time, process p[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        if (p[i].arrivalTime == time)
+        // printf("\nPT: %f\n TT: %f", (float)p[i].arrivalTime, time);
+
+        if ((float)p[i].arrivalTime == time)
         {
             printf("P%d", p[i].processId);
             return true;
@@ -129,19 +131,18 @@ void printGanttChart(process p[], int n)
     {
         printf("-");
     }
-
     printf("\n|");
 
-    for (int i = 0; i <= p[n - 1].completionTime; i++)
+    for (int i = 0; i <= p[n - 1].completionTime * 5; i++)
     {
-        if (!thisArrivalTimeFound(i, p, n))
+        // printf("\n%f\n", (float)i / 5);
+        if (!thisArrivalTimeFound((float)i / 4, p, n))
         {
             printf(" ");
         }
     }
 
-    printf("\n");
-
+    printf("|\n");
     for (int i = 0; i < p[n - 1].completionTime * 5; i++)
     {
         printf("-");
