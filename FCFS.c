@@ -51,6 +51,52 @@ void print(process p[], int n)
     }
 }
 
+void calculateCompletionTime(process p[], int n)
+{
+    p[0].completionTime = p[0].arrivalTime + p[0].burstTime;
+
+    for (int i = 1; i < n; i++)
+    {
+        if (p[i].arrivalTime > p[i - 1].completionTime)
+        {
+            p[i].completionTime = p[i].arrivalTime + p[i].burstTime;
+        }
+        else
+        {
+            p[i].completionTime = p[i - 1].completionTime + p[i].burstTime;
+        }
+    }
+}
+
+void calculateTurnAroundTime(process p[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        p[i].turnAroundTime = p[i].completionTime - p[i].arrivalTime;
+    }
+}
+
+void calculateWaitingTime(process p[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        p[i].waitingTime = p[i].turnAroundTime - p[i].burstTime;
+    }
+}
+
+void calculateAverageWaitingTime(process p[], int n)
+{
+
+    float sum = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        sum += p[i].waitingTime;
+    }
+
+    printf("Average waiting time = %.2f\n", sum / n);
+}
+
 void main()
 {
     int n;
@@ -61,11 +107,12 @@ void main()
 
     getProcessDetails(p, n);
     sort(p, n);
-    print(p, n);
 
     calculateCompletionTime(p, n);
     calculateTurnAroundTime(p, n);
     calculateWaitingTime(p, n);
     calculateAverageWaitingTime(p, n);
+
+    print(p, n);
     printGanttChart(p, n);
 }
