@@ -1,16 +1,6 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-void printGanttChart(process[], int);
-void getProcessDetails(process[], int);
-void sort(process[], int);
-void print(process[], int);
-void calculateCompletionTime(process[], int);
-void calculateTurnAroundTime(process[], int);
-void calculateWaitingTime(process[], int);
-void calculateAverageWaitingTime(process[], int);
-bool thisArrivalTimeFound(int, process[], int);
-
 typedef struct process
 {
     int processId;
@@ -21,6 +11,16 @@ typedef struct process
     ;
     int completionTime;
 } process;
+
+void printGanttChart(process[], int);
+void getProcessDetails(process[], int);
+void sort(process[], int);
+void print(process[], int);
+void calculateCompletionTime(process[], int);
+void calculateTurnAroundTime(process[], int);
+void calculateWaitingTime(process[], int);
+void calculateAverageWaitingTime(process[], int);
+bool thisArrivalTimeFound(int, process[], int);
 
 void getProcessDetails(process p[], int n)
 {
@@ -108,6 +108,19 @@ void calculateAverageWaitingTime(process p[], int n)
     printf("\nAverage waiting time = %.2f\n", sum / n);
 }
 
+bool thisArrivalTimeFound(int time, process p[], int n)
+{
+    for (int i = 0; i < n; i++)
+    {
+        if (p[i].arrivalTime == time)
+        {
+            printf("P%d", p[i].processId);
+            return true;
+        }
+    }
+    return false;
+}
+
 void printGanttChart(process p[], int n)
 {
     printf("\nGantt Chart\n");
@@ -121,10 +134,7 @@ void printGanttChart(process p[], int n)
 
     for (int i = 0; i <= p[n - 1].completionTime; i++)
     {
-        if (thisArrivalTimeFound(i, p, n))
-        {
-        }
-        else
+        if (!thisArrivalTimeFound(i, p, n))
         {
             printf(" ");
         }
