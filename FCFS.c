@@ -59,10 +59,13 @@ void sort(process p[], int n)
 
 void print(process p[], int n)
 {
-    printf("Process ID\tArrival Time\tBurst Time\tCompletion Time\tTurn Around Time\tWaiting Time\n");
+    printf("\n+---------+--------------+------------+-----------------+------------------+--------------+");
+    printf("\n| Process | Arrival Time | Burst Time | Completion Time | Turn Around Time | Waiting Time |");
+    printf("\n+---------+--------------+------------+-----------------+------------------+--------------+");
+
     for (int i = 0; i < n; i++)
     {
-        printf("%d\t\t%d\t\t%d\t\t%d\t\t%d\t\t%d\n", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
+        printf("\n+    %d   +      %d      +     %d     +        %d       +        %d        +      %d      +", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
     }
 }
 
@@ -120,12 +123,52 @@ bool thisArrivalTimeFound(float time, process p[], int n)
 
         if ((float)p[i].arrivalTime == time)
         {
-            printf("P%d", p[i].processId);
+            printf("|P%d", p[i].processId);
             return true;
         }
     }
     return false;
 }
+
+/*
+    // Calculate the total time required for all processes
+    for (i = 0; i < n; i++) {
+        total_time += p[i].burstTime;
+    }
+
+    printf("+");
+    for (i = 0; i < total_time; i++) {
+        printf("-");
+    }
+    printf("+\n");
+
+    // Print the process numbers and their respective bursts
+    printf("|");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < p[i].burstTime; j++) {
+            printf(" ");
+        }
+        printf("|");
+    }
+    printf("\n");
+
+    // Print the timeline and completion times
+    printf("0");
+    for (i = 0; i < n; i++) {
+        for (j = 0; j < p[i].burstTime; j++) {
+            printf(" ");
+        }
+        printf("%d", p[i].completionTime);
+        prev_completion_time = p[i].completionTime;
+    }
+    printf("\n");
+
+    printf("+");
+    for (i = 0; i < total_time; i++) {
+        printf("-");
+    }
+    printf("+\n");
+}*/
 
 void printGanttChart(process p[], int n)
 {
@@ -135,12 +178,12 @@ void printGanttChart(process p[], int n)
     {
         printf("-");
     }
-    printf("\n|");
+    printf("\n");
 
     for (int i = 0; i <= p[n - 1].completionTime * 7; i++)
     {
         // printf("\n%f\n", (float)i / 5);
-        if (!thisArrivalTimeFound((float)i / 5, p, n))
+        if (!thisArrivalTimeFound((float)i / 3, p, n))
         {
             printf(" ");
         }
