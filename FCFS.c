@@ -1,4 +1,15 @@
 #include <stdio.h>
+#include <stdbool.h>
+
+void printGanttChart(process[], int);
+void getProcessDetails(process[], int);
+void sort(process[], int);
+void print(process[], int);
+void calculateCompletionTime(process[], int);
+void calculateTurnAroundTime(process[], int);
+void calculateWaitingTime(process[], int);
+void calculateAverageWaitingTime(process[], int);
+bool thisArrivalTimeFound(int, process[], int);
 
 typedef struct process
 {
@@ -110,20 +121,12 @@ void printGanttChart(process p[], int n)
 
     for (int i = 0; i <= p[n - 1].completionTime; i++)
     {
-        for (int i = 0; i < n; i++)
+        if (thisArrivalTimeFound(i, p, n))
         {
-            if (p[i].arrivalTime == i)
-            {
-                printf("P%d", p[i].processId);
-            }
-            else
-            {
-                printf(" ");
-            }
-            if (i == p[0].completionTime)
-            {
-                printf("|");
-            }
+        }
+        else
+        {
+            printf(" ");
         }
     }
 
