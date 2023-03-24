@@ -1,3 +1,7 @@
+/*
+INCOMPLETE :(
+*/
+
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -127,23 +131,23 @@ void printGanttChart(process p[], int n)
 {
     printf("\nGantt Chart\n");
 
-    for (int i = 0; i < p[n - 1].completionTime * 5; i++)
+    for (int i = 0; i < p[n - 1].completionTime * 7; i++)
     {
         printf("-");
     }
     printf("\n|");
 
-    for (int i = 0; i <= p[n - 1].completionTime * 5; i++)
+    for (int i = 0; i <= p[n - 1].completionTime * 7; i++)
     {
         // printf("\n%f\n", (float)i / 5);
-        if (!thisArrivalTimeFound((float)i / 4, p, n))
+        if (!thisArrivalTimeFound((float)i / 5, p, n))
         {
             printf(" ");
         }
     }
 
     printf("|\n");
-    for (int i = 0; i < p[n - 1].completionTime * 5; i++)
+    for (int i = 0; i < p[n - 1].completionTime * 7; i++)
     {
         printf("-");
     }
