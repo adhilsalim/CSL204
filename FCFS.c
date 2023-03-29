@@ -1,7 +1,3 @@
-/*
-INCOMPLETE :(
-*/
-
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -12,7 +8,6 @@ typedef struct process
     int burstTime;
     int waitingTime;
     int turnAroundTime;
-    ;
     int completionTime;
 } process;
 
@@ -185,7 +180,6 @@ bool thisArrivalTimeFound(float time, process p[], int n)
 {
     for (int i = 0; i < n; i++)
     {
-        // printf("\nPT: %f\n TT: %f", (float)p[i].arrivalTime, time);
 
         if ((float)p[i].arrivalTime == time)
         {
@@ -195,46 +189,6 @@ bool thisArrivalTimeFound(float time, process p[], int n)
     }
     return false;
 }
-
-/*
-    // Calculate the total time required for all processes
-    for (i = 0; i < n; i++) {
-        total_time += p[i].burstTime;
-    }
-
-    printf("+");
-    for (i = 0; i < total_time; i++) {
-        printf("-");
-    }
-    printf("+\n");
-
-    // Print the process numbers and their respective bursts
-    printf("|");
-    for (i = 0; i < n; i++) {
-        for (j = 0; j < p[i].burstTime; j++) {
-            printf(" ");
-        }
-        printf("|");
-    }
-    printf("\n");
-
-    // Print the timeline and completion times
-    printf("0");
-    for (i = 0; i < n; i++) {
-        for (j = 0; j < p[i].burstTime; j++) {
-            printf(" ");
-        }
-        printf("%d", p[i].completionTime);
-        prev_completion_time = p[i].completionTime;
-    }
-    printf("\n");
-
-    printf("+");
-    for (i = 0; i < total_time; i++) {
-        printf("-");
-    }
-    printf("+\n");
-}*/
 
 void printGanttChart(process p[], int n)
 {
