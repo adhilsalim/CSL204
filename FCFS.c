@@ -25,6 +25,21 @@ void calculateTurnAroundTime(process[], int);
 void calculateWaitingTime(process[], int);
 void calculateAverageWaitingTime(process[], int);
 bool thisArrivalTimeFound(float, process[], int);
+bool isTableBreak(int);
+
+int tableBreaks[] = {0, 10, 25, 38, 56, 75, 90};
+
+bool isTableBreak(int i)
+{
+    for (int j = 0; j < 7; j++)
+    {
+        if (i == tableBreaks[j])
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 void getProcessDetails(process p[], int n)
 {
@@ -61,11 +76,24 @@ void print(process p[], int n)
 {
     printf("\n+---------+--------------+------------+-----------------+------------------+--------------+");
     printf("\n| Process | Arrival Time | Burst Time | Completion Time | Turn Around Time | Waiting Time |");
-    printf("\n+---------+--------------+------------+-----------------+------------------+--------------+");
+    printf("\n+---------+--------------+------------+-----------------+------------------+--------------+\n");
 
     for (int i = 0; i < n; i++)
     {
-        printf("\n+    %d   +      %d      +     %d     +        %d       +        %d        +      %d      +", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
+        for (int i = 0; i < 91; i++)
+        {
+            if (isTableBreak(i))
+            {
+                printf("+");
+            }
+            else
+            {
+                printf("-");
+            }
+        }
+        printf("\n");
+
+        // printf("\n+    %d   +      %d      +     %d     +        %d       +        %d        +      %d      +", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
     }
 }
 
