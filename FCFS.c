@@ -11,6 +11,7 @@ typedef struct process
     int completionTime;
 } process;
 
+// function prototypes
 void printGanttChart(process[], int);
 void getProcessDetails(process[], int);
 void sort(process[], int);
@@ -18,7 +19,8 @@ void print(process[], int);
 void calculateCompletionTime(process[], int);
 void calculateTurnAroundTime(process[], int);
 void calculateWaitingTime(process[], int);
-void calculateAverageWaitingTime(process[], int);
+float calculateAverageWaitingTime(process[], int);
+float calculateAverageTurnAroundTime(process[], int);
 bool isTableBreak(int);
 bool isTableDataField(int);
 bool isArrivalTime(process[], int, int);
@@ -107,6 +109,7 @@ void sort(process p[], int n)
     }
 }
 
+// printing the process details
 void print(process p[], int n)
 {
     printf("\n+-----------------------------------------------------------------------------------------+");
@@ -117,14 +120,13 @@ void print(process p[], int n)
 
     for (int i = 0; i < n; i++)
     {
-        printf("| %7d | %12d | %10d | %15d | %16d | %12d |\n", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
+        printf("| %4d    | %7d      | %6d     | %8d        | %8d         | %6d       |\n", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
         printf("+---------+--------------+------------+-----------------+------------------+--------------+\n");
     }
-    printf("\n|                                                                                         |");
+    printf("+-----------------------------------------------------------------------------------------+");
+    printf("\n| AVERAGE TURN AROUND TIME:  %2d                                                             |", );
     printf("\n+-----------------------------------------------------------------------------------------+");
-    printf("\n| AVERAGE TURN AROUND TIME:                                                               |");
-    printf("\n+-----------------------------------------------------------------------------------------+");
-    printf("\n| AVERAGE WAITING TIME    :                                                               |");
+    printf("\n| AVERAGE WAITING TIME    :  %2d                                                             |");
     printf("\n+-----------------------------------------------------------------------------------------+");
 }
 
@@ -161,7 +163,7 @@ void calculateWaitingTime(process p[], int n)
     }
 }
 
-void calculateAverageWaitingTime(process p[], int n)
+float getAverageWaitingTime(process p[], int n)
 {
 
     float sum = 0;
@@ -171,7 +173,20 @@ void calculateAverageWaitingTime(process p[], int n)
         sum += p[i].waitingTime;
     }
 
-    printf("\nAverage waiting time = %.2f\n", sum / n);
+    return sum / n;
+}
+
+float getAverageTurnAroundTime(process p[], int n)
+{
+
+    float sum = 0;
+
+    for (int i = 0; i < n; i++)
+    {
+        sum += p[i].turnAroundTime;
+    }
+
+    return sum / n;
 }
 
 void printGanttChart(process p[], int n)
