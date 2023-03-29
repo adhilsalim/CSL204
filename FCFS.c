@@ -19,7 +19,6 @@ void calculateCompletionTime(process[], int);
 void calculateTurnAroundTime(process[], int);
 void calculateWaitingTime(process[], int);
 void calculateAverageWaitingTime(process[], int);
-// bool thisArrivalTimeFound(float, process[], int);
 bool isTableBreak(int);
 bool isTableDataField(int);
 bool isArrivalTime(process[], int, int);
@@ -125,20 +124,19 @@ void print(process p[], int n)
         tempData[4] = p[i].turnAroundTime;
         tempData[5] = p[i].waitingTime;
 
-        for (int j = 0; j < 91; j++)
-        {
-            if (isTableDataField(j))
-            {
-                printf("%d", tempData[k]);
-                k++;
-            }
-            else
-            {
-                printf(" ");
-            }
-        }
-
-        printf("\n");
+        // for (int j = 0; j < 91; j++)
+        // {
+        //     if (isTableDataField(j))
+        //     {
+        //         printf("%d", tempData[k]);
+        //         k++;
+        //     }
+        //     else
+        //     {
+        //         printf(" ");
+        //     }
+        // }
+        printf("| %7d | %12d | %10d | %15d | %16d | %12d |\n", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
 
         for (int j = 0; j < 91; j++)
         {
