@@ -19,7 +19,7 @@ void calculateCompletionTime(process[], int);
 void calculateTurnAroundTime(process[], int);
 void calculateWaitingTime(process[], int);
 void calculateAverageWaitingTime(process[], int);
-bool thisArrivalTimeFound(float, process[], int);
+// bool thisArrivalTimeFound(float, process[], int);
 bool isTableBreak(int);
 bool isTableDataField(int);
 bool isArrivalTime(process[], int, int);
@@ -202,33 +202,41 @@ void calculateAverageWaitingTime(process p[], int n)
     printf("\nAverage waiting time = %.2f\n", sum / n);
 }
 
-bool thisArrivalTimeFound(float time, process p[], int n)
-{
-    for (int i = 0; i < n; i++)
-    {
-
-        if ((float)p[i].arrivalTime == time)
-        {
-            printf("|P%d", p[i].processId);
-            return true;
-        }
-    }
-    return false;
-}
-
 void printGanttChart(process p[], int n)
 {
     printf("\n\nGantt Chart\n");
 
     int totalCompletionTime = p[n - 1].completionTime;
 
-    for (int i = 0; i <= totalCompletionTime; i++)
+    for (int i = 0, j = 0; i <= totalCompletionTime; i++)
     {
         if (isArrivalTime(p, n, i))
         {
+            printf("+");
         }
-        if (isCompletionTime(p, n, i))
+        else if (isCompletionTime(p, n, i) && !isArrivalTime(p, n, i))
         {
+            printf("+");
+        }
+        else
+        {
+            printf("----");
+        }
+
+        printf("/n");
+
+        if (isArrivalTime(p, n, i))
+        {
+            printf("+");
+            j++;
+        }
+        else if (isCompletionTime(p, n, i) && !isArrivalTime(p, n, i))
+        {
+            printf("+");
+        }
+        else
+        {
+            printf("----");
         }
     }
 }
