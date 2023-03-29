@@ -26,8 +26,23 @@ void calculateWaitingTime(process[], int);
 void calculateAverageWaitingTime(process[], int);
 bool thisArrivalTimeFound(float, process[], int);
 bool isTableBreak(int);
+bool isTableDataField(int);
 
 int tableBreaks[] = {0, 10, 25, 38, 56, 75, 90};
+int tableDataFields[] = {5, 17, 32, 48, 66, 83};
+int tempData[] = {0, 0, 0, 0, 0, 0};
+
+bool isTableDataField(int i)
+{
+    for (int j = 0; j < 6; j++)
+    {
+        if (i == tableDataFields[j])
+        {
+            return true;
+        }
+    }
+    return false;
+}
 
 bool isTableBreak(int i)
 {
@@ -80,9 +95,33 @@ void print(process p[], int n)
 
     for (int i = 0; i < n; i++)
     {
-        for (int i = 0; i < 91; i++)
+        int k = 0;
+
+        tempData[0] = p[i].processId;
+        tempData[1] = p[i].arrivalTime;
+        tempData[2] = p[i].burstTime;
+        tempData[3] = p[i].completionTime;
+        tempData[4] = p[i].turnAroundTime;
+        tempData[5] = p[i].waitingTime;
+
+        for (int j = 0; j < 91; j++)
         {
-            if (isTableBreak(i))
+            if (isTableDataField(j))
+            {
+                printf("%d", tempData[k]);
+                k++;
+            }
+            else
+            {
+                printf(" ");
+            }
+        }
+
+        printf("\n");
+
+        for (int j = 0; j < 91; j++)
+        {
+            if (isTableBreak(j))
             {
                 printf("+");
             }
@@ -91,9 +130,8 @@ void print(process p[], int n)
                 printf("-");
             }
         }
-        printf("\n");
 
-        // printf("\n+    %d   +      %d      +     %d     +        %d       +        %d        +      %d      +", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
+        printf("\n");
     }
 }
 
