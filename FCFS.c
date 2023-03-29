@@ -222,13 +222,33 @@ void printGanttChart(process p[], int n)
         {
             printf("----");
         }
+    }
 
-        printf("/n");
+    printf("\n");
 
+    for (int i = 0, j = 0; i <= totalCompletionTime; i++)
+    {
         if (isArrivalTime(p, n, i))
         {
             printf("+");
-            j++;
+        }
+        else if (isCompletionTime(p, n, i) && !isArrivalTime(p, n, i))
+        {
+            printf("+");
+        }
+        else
+        {
+            printf("    ");
+        }
+    }
+
+    printf("\n");
+
+    for (int i = 0, j = 0; i <= totalCompletionTime; i++)
+    {
+        if (isArrivalTime(p, n, i))
+        {
+            printf("+");
         }
         else if (isCompletionTime(p, n, i) && !isArrivalTime(p, n, i))
         {
