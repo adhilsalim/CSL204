@@ -109,49 +109,23 @@ void sort(process p[], int n)
 
 void print(process p[], int n)
 {
+    printf("\n+-----------------------------------------------------------------------------------------+");
+    printf("\n|                                  PROCESS DETAILS                                        |");
     printf("\n+---------+--------------+------------+-----------------+------------------+--------------+");
     printf("\n| Process | Arrival Time | Burst Time | Completion Time | Turn Around Time | Waiting Time |");
     printf("\n+---------+--------------+------------+-----------------+------------------+--------------+\n");
 
     for (int i = 0; i < n; i++)
     {
-        int k = 0;
-
-        tempData[0] = p[i].processId;
-        tempData[1] = p[i].arrivalTime;
-        tempData[2] = p[i].burstTime;
-        tempData[3] = p[i].completionTime;
-        tempData[4] = p[i].turnAroundTime;
-        tempData[5] = p[i].waitingTime;
-
-        // for (int j = 0; j < 91; j++)
-        // {
-        //     if (isTableDataField(j))
-        //     {
-        //         printf("%d", tempData[k]);
-        //         k++;
-        //     }
-        //     else
-        //     {
-        //         printf(" ");
-        //     }
-        // }
         printf("| %7d | %12d | %10d | %15d | %16d | %12d |\n", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
-
-        for (int j = 0; j < 91; j++)
-        {
-            if (isTableBreak(j))
-            {
-                printf("+");
-            }
-            else
-            {
-                printf("-");
-            }
-        }
-
-        printf("\n");
+        printf("+---------+--------------+------------+-----------------+------------------+--------------+\n");
     }
+    printf("\n|                                                                                         |");
+    printf("\n+-----------------------------------------------------------------------------------------+");
+    printf("\n| AVERAGE TURN AROUND TIME:                                                               |");
+    printf("\n+-----------------------------------------------------------------------------------------+");
+    printf("\n| AVERAGE WAITING TIME    :                                                               |");
+    printf("\n+-----------------------------------------------------------------------------------------+");
 }
 
 void calculateCompletionTime(process p[], int n)
