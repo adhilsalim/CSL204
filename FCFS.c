@@ -19,8 +19,10 @@ void print(process[], int);
 void calculateCompletionTime(process[], int);
 void calculateTurnAroundTime(process[], int);
 void calculateWaitingTime(process[], int);
-float calculateAverageWaitingTime(process[], int);
-float calculateAverageTurnAroundTime(process[], int);
+
+float getAverageWaitingTime(process[], int);
+float getAverageTurnAroundTime(process[], int);
+
 bool isTableBreak(int);
 bool isTableDataField(int);
 bool isArrivalTime(process[], int, int);
@@ -121,12 +123,13 @@ void print(process p[], int n)
     for (int i = 0; i < n; i++)
     {
         printf("| %4d    | %7d      | %6d     | %8d        | %8d         | %6d       |\n", p[i].processId, p[i].arrivalTime, p[i].burstTime, p[i].completionTime, p[i].turnAroundTime, p[i].waitingTime);
-        printf("+---------+--------------+------------+-----------------+------------------+--------------+\n");
+        if (i < n - 1)
+            printf("+---------+--------------+------------+-----------------+------------------+--------------+\n");
     }
     printf("+-----------------------------------------------------------------------------------------+");
-    printf("\n| AVERAGE TURN AROUND TIME:  %2d                                                             |", );
+    printf("\n| AVERAGE TURN AROUND TIME:  %2f                                                     |", getAverageTurnAroundTime(p, n));
     printf("\n+-----------------------------------------------------------------------------------------+");
-    printf("\n| AVERAGE WAITING TIME    :  %2d                                                             |");
+    printf("\n| AVERAGE WAITING TIME    :  %2f                                                     |", getAverageWaitingTime(p, n));
     printf("\n+-----------------------------------------------------------------------------------------+");
 }
 
@@ -173,7 +176,7 @@ float getAverageWaitingTime(process p[], int n)
         sum += p[i].waitingTime;
     }
 
-    return sum / n;
+    return (float)(sum / n);
 }
 
 float getAverageTurnAroundTime(process p[], int n)
@@ -262,7 +265,6 @@ void main()
     calculateCompletionTime(p, n);
     calculateTurnAroundTime(p, n);
     calculateWaitingTime(p, n);
-    calculateAverageWaitingTime(p, n);
 
     print(p, n);
     printGanttChart(p, n);
