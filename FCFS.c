@@ -23,15 +23,6 @@ void calculateWaitingTime(process[], int);
 float getAverageWaitingTime(process[], int);
 float getAverageTurnAroundTime(process[], int);
 
-bool isTableBreak(int);
-bool isTableDataField(int);
-bool isArrivalTime(process[], int, int);
-bool isCompletionTime(process[], int, int);
-
-int tableBreaks[] = {0, 10, 25, 38, 56, 75, 90};
-int tableDataFields[] = {5, 17, 32, 48, 66, 83};
-int tempData[] = {0, 0, 0, 0, 0, 0};
-
 bool isArrivalTime(process p[], int n, int time)
 {
     for (int i = 0; i < n; i++)
@@ -49,30 +40,6 @@ bool isCompletionTime(process p[], int n, int time)
     for (int i = 0; i < n; i++)
     {
         if (p[i].completionTime == time)
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool isTableDataField(int i)
-{
-    for (int j = 0; j < 6; j++)
-    {
-        if (i == tableDataFields[j])
-        {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool isTableBreak(int i)
-{
-    for (int j = 0; j < 7; j++)
-    {
-        if (i == tableBreaks[j])
         {
             return true;
         }
