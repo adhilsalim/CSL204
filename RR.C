@@ -12,6 +12,7 @@ typedef struct process
     int waitingTime;
     int turnAroundTime;
     int completionTime;
+    int executedTime;
 } process;
 
 void printGanttChart(process[], int);
@@ -22,6 +23,7 @@ void calculateCompletionTime(process[], int);
 void calculateTurnAroundTime(process[], int);
 void calculateWaitingTime(process[], int);
 void calculateAverageWaitingTime(process[], int);
+void executeProcess(process[], int);
 
 void insertIntoReadyQueue(int);
 int deleteFromReadyQueue();
@@ -42,7 +44,8 @@ int readyQueueRear = -1;
 
 // System Clock
 int systemClock = 0;
-int currentProccess = -1;
+int currentProccess = -2;
+int quantum = 2;
 
 // Ready Queue Functions
 void insertIntoReadyQueue(int processId)
@@ -94,6 +97,34 @@ void getProcessDetails(process p[], int n)
 
         printf("Enter the burst time of P%d: ", p[i].processId);
         scanf("%d", &p[i].burstTime);
+
+        p[i].executedTime = 0;
+    }
+}
+
+void executeProcess(process p[], int n)
+{
+    if (currentProccess == -2 && readyQueueFront != -1)
+    {
+        currentProccess = deleteFromReadyQueue();
+    }
+    else if (currentProccess != -2)
+    {
+        if (p[currentProccess].burstTime == 0)
+        {
+            currentProccess = -2;
+        }
+        else if (p[currentProccess].executedTime < quantum)
+        {
+            p[currentProccess].burstTime--;
+            p[currentProccess].executedTime++;
+        }
+        else
+        {
+            insertIntoReadyQueue(currentProccess);
+            currentProccess = deleteFromReadyQueue();
+            p[currentProccess].executedTime = 0;
+        }
     }
 }
 
@@ -116,9 +147,6 @@ void main()
             }
         }
 
-        if (currentProccess == -1)
-        {
-            currentProccess = readyQueue[++readyQueueFront];
-        }
+        executeProcess(p, n);
     }
 }
