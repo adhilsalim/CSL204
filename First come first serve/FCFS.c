@@ -154,60 +154,6 @@ float getAverageTurnAroundTime(process p[], int n)
 void printGanttChart(process p[], int n)
 {
     printf("\n\nGantt Chart\n");
-
-    int totalCompletionTime = p[n - 1].completionTime;
-
-    for (int i = 0, j = 0; i <= totalCompletionTime; i++)
-    {
-        if (isArrivalTime(p, n, i))
-        {
-            printf("+");
-        }
-        else if (isCompletionTime(p, n, i) && !isArrivalTime(p, n, i))
-        {
-            printf("+");
-        }
-        else
-        {
-            printf("----");
-        }
-    }
-
-    printf("\n");
-
-    for (int i = 0, j = 0; i <= totalCompletionTime; i++)
-    {
-        if (isArrivalTime(p, n, i))
-        {
-            printf("+");
-        }
-        else if (isCompletionTime(p, n, i) && !isArrivalTime(p, n, i))
-        {
-            printf("+");
-        }
-        else
-        {
-            printf("    ");
-        }
-    }
-
-    printf("\n");
-
-    for (int i = 0, j = 0; i <= totalCompletionTime; i++)
-    {
-        if (isArrivalTime(p, n, i))
-        {
-            printf("+");
-        }
-        else if (isCompletionTime(p, n, i) && !isArrivalTime(p, n, i))
-        {
-            printf("+");
-        }
-        else
-        {
-            printf("----");
-        }
-    }
 }
 
 // printing the process details
