@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# to find the sum of natural numbers
-
 echo "enter a number"
 read n
 
