@@ -98,23 +98,30 @@ void main()
 
         for (int i = 0; i < total_process_RQ; i++)
         {
-            if (ready_queue[i].BT < ready_queue[pid_of_shortest_process].BT)
+            if (ready_queue[i].BT < ready_queue[pid_of_shortest_process - 1].BT)
             {
-                pid_of_shortest_process = i;
+                pid_of_shortest_process = i + 1;
             }
         }
 
+        printf("\nProcess with PID %d has the shortest burst time\n", ready_queue[pid_of_shortest_process - 1].PID); // for testing
+
         // reduce the burst time of the process with the shortest burst time by 1
-        if (ready_queue[pid_of_shortest_process].BT > 0)
+        if (ready_queue[pid_of_shortest_process - 1].BT > 0)
         {
-            ready_queue[pid_of_shortest_process].BT--;
+            ready_queue[pid_of_shortest_process - 1].BT--;
+            p[pid_of_shortest_process - 1].BT--;
         }
 
-        if (ready_queue[pid_of_shortest_process].BT == 0)
+        printf("\nProcess with PID %d has burst time %d\n", ready_queue[pid_of_shortest_process - 1].PID, ready_queue[pid_of_shortest_process - 1].BT); // for testing
+
+        if (ready_queue[pid_of_shortest_process - 1].BT == 0)
         {
             ready_queue[pid_of_shortest_process].DN = 1;
             p[pid_of_shortest_process].DN = 1;
         }
+
+        printf("\nProcess with PID %d has done = %d\n", ready_queue[pid_of_shortest_process - 1].PID, ready_queue[pid_of_shortest_process - 1].DN); // for testing
 
         // increment the clock time
         clock_time++;
@@ -129,6 +136,8 @@ void main()
                 completed_all_process = false;
                 break;
             }
+
+            printf("\nProcess with PID %d has done = %d\n", p[i].PID, p[i].DN); // for testing
         }
     }
 
