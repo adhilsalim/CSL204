@@ -85,6 +85,21 @@ void main()
         current_time = p[i].CT;
     }
 
+    // sorting the processes according to PID before printing
+
+    for (int i = 0; i < total_processes - 1; i++)
+    {
+        for (int j = 0; j < total_processes - i - 1; j++)
+        {
+            if (p[j].PID > p[j + 1].PID)
+            {
+                Process temp = p[j];
+                p[j] = p[j + 1];
+                p[j + 1] = temp;
+            }
+        }
+    }
+
     // printing the TAT and WT for each process
     // also calculating the average TAT and WT
     float avg_TAT = 0;
