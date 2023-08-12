@@ -17,13 +17,13 @@ WT = TAT - BT
 
 typedef struct
 {
-    int AT;    // Arrival Time
-    int BT;    // Burst Time
-    int RT;    // Remaining Time
-    int CT;    // Completion Time
-    int TAT;   // Turnaround Time
-    int WT;    // Waiting Time
-    int PID;   // Process ID
+    int AT;
+    int BT;
+    int RT; // Remaining Time
+    int CT;
+    int TAT;
+    int WT;
+    int PID;
     bool done; // Flag to track if the process is done
 } Process;
 
@@ -50,8 +50,8 @@ int main()
 
         printf("\n");
 
-        p[i].RT = p[i].BT;
-        p[i].done = false;
+        p[i].RT = p[i].BT; // Initialize the remaining time to burst time
+        p[i].done = false; // Initialize the done flag to false
     }
 
     int clock_time = 0;
