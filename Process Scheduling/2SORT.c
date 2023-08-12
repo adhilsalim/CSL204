@@ -1,6 +1,7 @@
 /*
     2SORT
-    sort based on two values useful for SJF, Priority Scheduling
+    this logic is used in SJF and SRTF algorithms
+    when modified a little bit, it can be used in Priority Scheduling as well
 */
 
 #include <stdio.h>
