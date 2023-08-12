@@ -1,3 +1,8 @@
+/*
+    2SORT
+    sort based on two values useful for SJF, Priority Scheduling
+*/
+
 #include <stdio.h>
 
 void swap(int *a, int *b)
