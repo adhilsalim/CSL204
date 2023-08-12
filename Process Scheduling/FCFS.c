@@ -31,8 +31,10 @@ void main()
     printf("Enter the number of process: ");
     scanf("%d", &total_processes);
 
+    // creating an array of processes
     Process p[total_processes];
 
+    // getting process details
     for (int i = 0; i < total_processes; i++)
     {
         printf("Enter the the PID for process %d: ", i + 1);
@@ -45,5 +47,20 @@ void main()
         scanf("%d", &p[i].BT);
 
         printf("\n");
+    }
+
+    // sorting the processes according to their arrival time
+
+    for (int i = 0; i < total_processes - 1; i++)
+    {
+        for (int j = 0; j < total_processes - i - 1; j++)
+        {
+            if (p[j].AT > p[j + 1].AT)
+            {
+                Process temp = p[j];
+                p[j] = p[j + 1];
+                p[j + 1] = temp;
+            }
+        }
     }
 }
