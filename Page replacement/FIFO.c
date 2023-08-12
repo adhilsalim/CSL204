@@ -1,5 +1,4 @@
 #include <stdio.h>
-#include <stdlib.h>
 
 void main()
 {
@@ -14,12 +13,14 @@ void main()
     int FRAMES[total_frames];
     int PAGES[total_pages];
 
+    // Input the pages
     for (int i = 0; i < total_pages; i++)
     {
         printf("Enter the page number: ");
         scanf("%d", &PAGES[i]);
     }
 
+    // Initialize the frames
     for (int j = 0; j < total_frames; j++)
     {
         FRAMES[j] = -1;
@@ -30,6 +31,7 @@ void main()
     int page_faults = 0;
     int page_hit = 0;
 
+    //  FIFO Algorithm
     for (int i = 0; i < total_pages; i++)
     {
 
