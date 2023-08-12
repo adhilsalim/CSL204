@@ -1,3 +1,17 @@
+/*
+
+SHORTEST REMAINING TIME SCHEDULING ALGORITHM
+
+Arrival time: the time at which the process arrives in the ready queue.
+Completion time: the time at which process completes its execution.
+Burst time: the time required by a process for CPU execution.
+Turn around time: time difference between completion time and arrival time.
+
+TAT = CT - AT
+WT = TAT - BT
+
+*/
+
 #include <stdio.h>
 #include <stdbool.h>
 
@@ -20,8 +34,10 @@ int main()
     printf("Enter the number of processes: ");
     scanf("%d", &total_processes);
 
+    // Array of processes
     Process p[total_processes];
 
+    // Input the data for each process
     for (int i = 0; i < total_processes; i++)
     {
         p[i].PID = i + 1;
@@ -31,6 +47,8 @@ int main()
 
         printf("Enter the burst time for process %d: ", p[i].PID);
         scanf("%d", &p[i].BT);
+
+        printf("\n");
 
         p[i].RT = p[i].BT;
         p[i].done = false;
@@ -44,6 +62,7 @@ int main()
         int shortest_index = -1;
         int shortest_time = 9999; // A high value to find the minimum
 
+        // Find the process with the shortest remaining time
         for (int i = 0; i < total_processes; i++)
         {
             if (!p[i].done && p[i].AT <= clock_time && p[i].RT < shortest_time)
@@ -53,20 +72,28 @@ int main()
             }
         }
 
+        // If no process is found, increment the clock time
         if (shortest_index == -1)
         {
             clock_time++;
-            continue;
+            continue; // Go to the next iteration of the loop
         }
 
+        // Otherwise, decrement the remaining time of the process
         p[shortest_index].RT--;
 
+        // If the remaining time is 0, the process is done
         if (p[shortest_index].RT == 0)
         {
+            // completion time is the current time + 1
+            // why 1? because the process is done at the end of the current time
             p[shortest_index].CT = clock_time + 1;
+
             p[shortest_index].TAT = p[shortest_index].CT - p[shortest_index].AT;
             p[shortest_index].WT = p[shortest_index].TAT - p[shortest_index].BT;
+
             p[shortest_index].done = true;
+
             completed_processes++;
         }
 
