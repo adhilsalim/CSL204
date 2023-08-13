@@ -29,27 +29,18 @@ void main()
         }
     }
 
-    // print the frames - for testing
-    for (int j = 0; j < total_frames; j++)
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            printf("%d ", FRAMES[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
-
     int pageIsPresent;
     int frame_pointer = 0;
     int frame_counter = 0;
     int page_faults = 0;
     int page_hit = 0;
     int testCounter = 1;
+
     for (int i = 0; i < total_pages; i++)
     {
         pageIsPresent = 0;
 
+        // check if the page is present in the frame
         for (int j = 0; j < total_frames; j++)
         {
             if (FRAMES[0][j] == PAGES[i])
@@ -59,19 +50,44 @@ void main()
             }
         }
 
+        // page is not present
         if (pageIsPresent == 0)
         {
             page_faults++;
 
-            // frame has free space
-            for (int k = 0; k < total_frames; k++)
+            int freeSpace = 0;
+            int freeSpacePointer;
+
+            // check if there is any free space in the frame
+            for (int j = 0; j < total_frames; j++)
             {
-                if (FRAMES[0][k] == -1)
+                if (FRAMES[0][j] == -1)
                 {
-                    FRAMES[0][k] = PAGES[i];
-                    FRAMES[1][k] = frame_counter++;
+                    freeSpace = 1;
+                    freeSpacePointer = j;
                     break;
                 }
+            }
+
+            // frame has free space
+            if (freeSpace == 1)
+            {
+                frame_counter += 1;
+                FRAMES[0][freeSpacePointer] = PAGES[i];
+                FRAMES[1][freeSpacePointer] = frame_counter;
+                printf("free space found. Inserting %d with frame counter %d\n", PAGES[i], frame_counter);
+
+                printf("\ncounter: %d\n", testCounter++);
+                for (int j = 0; j < total_frames; j++)
+                {
+                    for (int i = 0; i < 2; i++)
+                    {
+                        printf("%d ", FRAMES[i][j]);
+                    }
+                    printf("\n");
+                }
+                printf("\n");
+                continue;
             }
 
             // frame has no free space
@@ -86,8 +102,10 @@ void main()
             }
 
             // replace the frame
+            frame_counter += 1;
             FRAMES[0][frame_pointer] = PAGES[i];
-            FRAMES[1][frame_pointer] = frame_counter++;
+            FRAMES[1][frame_pointer] = frame_counter;
+            printf("no free space found. Inserting %d with frame counter %d\n", PAGES[i], frame_counter);
         }
         else
         {
@@ -98,10 +116,13 @@ void main()
             {
                 if (FRAMES[0][k] == PAGES[i])
                 {
-                    FRAMES[1][k] = frame_counter++;
+                    frame_counter += 1;
+                    FRAMES[1][k] = frame_counter;
                     break;
                 }
             }
+
+            printf("%d is present. page hit. Updating frame counter to %d\n", PAGES[i], frame_counter);
         }
 
         printf("\ncounter: %d\n", testCounter++);
@@ -115,17 +136,6 @@ void main()
         }
         printf("\n");
     }
-
-    // print the frames - for testing
-    for (int j = 0; j < total_frames; j++)
-    {
-        for (int i = 0; i < 2; i++)
-        {
-            printf("%d ", FRAMES[i][j]);
-        }
-        printf("\n");
-    }
-    printf("\n");
 
     printf("Total page faults: %d\n", page_faults);
     printf("Total page hits: %d\n", page_hit);
