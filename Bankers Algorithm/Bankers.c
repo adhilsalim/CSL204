@@ -1,3 +1,5 @@
+// INCOMPLETE
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -108,5 +110,64 @@ void main()
     for (int i = 0; i < total_resources; i++)
     {
         printf("%d ", AVAILABLE[i]);
+    }
+
+    // check for deadlock
+    int DEADLOCK[total_processes];
+
+    for (int i = 0; i < total_processes; i++)
+    {
+        DEADLOCK[i] = 0;
+    }
+
+    for (int i = 0; i < total_processes; i++)
+    {
+        for (int j = 0; j < total_resources; j++)
+        {
+            if (NEED[i][j] > AVAILABLE[j])
+            {
+                DEADLOCK[i] = 1;
+                break;
+            }
+        }
+    }
+
+    bool deadlock = true;
+
+    for (int i = 0; i < total_processes; i++)
+    {
+        if (DEADLOCK[i] == 0)
+        {
+            deadlock = false;
+            break;
+        }
+    }
+
+    // print deadlock matrix
+    printf("\nDeadlock matrix: \n");
+    for (int i = 0; i < total_processes; i++)
+    {
+        printf("%d ", DEADLOCK[i]);
+    }
+
+    if (deadlock)
+    {
+        printf("\nDeadlock detected\n");
+        exit(0);
+    }
+    else
+    {
+        // find system safe sequence
+        int allocated_processes = 0;
+        int current_process = 0;
+        bool can_allocate = false;
+
+        int SAFE_SEQUENCE[total_processes];
+        int safe_sequence_index = 0;
+
+        // when there are processes remaining to allocate
+        while (allocated_processes < total_processes)
+        {
+        }
     }
 }
