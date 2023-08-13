@@ -1,5 +1,5 @@
 #include <stdio.h>
-// FIXING A BUG INCOMPLETE
+
 void main()
 {
     int total_frames, total_pages;
@@ -75,27 +75,16 @@ void main()
                 frame_counter += 1;
                 FRAMES[0][freeSpacePointer] = PAGES[i];
                 FRAMES[1][freeSpacePointer] = frame_counter;
-                printf("free space found. Inserting %d with frame counter %d\n", PAGES[i], frame_counter);
-
-                printf("\ncounter: %d\n", testCounter++);
-                for (int j = 0; j < total_frames; j++)
-                {
-                    for (int i = 0; i < 2; i++)
-                    {
-                        printf("%d ", FRAMES[i][j]);
-                    }
-                    printf("\n");
-                }
-                printf("\n");
                 continue;
             }
 
             // frame has no free space
-            int minCounter = FRAMES[1][0];
+            int minCounter = 0;
             for (int k = 0; k < total_frames; k++)
             {
                 if (FRAMES[1][k] < minCounter)
                 {
+                    printf("%d is less than %d\n", FRAMES[1][k], minCounter);
                     minCounter = FRAMES[1][k];
                     frame_pointer = k;
                 }
@@ -105,7 +94,6 @@ void main()
             frame_counter += 1;
             FRAMES[0][frame_pointer] = PAGES[i];
             FRAMES[1][frame_pointer] = frame_counter;
-            printf("no free space found. Inserting %d with frame counter %d\n", PAGES[i], frame_counter);
         }
         else
         {
@@ -121,20 +109,7 @@ void main()
                     break;
                 }
             }
-
-            printf("%d is present. page hit. Updating frame counter to %d\n", PAGES[i], frame_counter);
         }
-
-        printf("\ncounter: %d\n", testCounter++);
-        for (int j = 0; j < total_frames; j++)
-        {
-            for (int i = 0; i < 2; i++)
-            {
-                printf("%d ", FRAMES[i][j]);
-            }
-            printf("\n");
-        }
-        printf("\n");
     }
 
     printf("Total page faults: %d\n", page_faults);
