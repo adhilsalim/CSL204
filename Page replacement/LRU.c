@@ -1,5 +1,5 @@
 #include <stdio.h>
-
+#include <stdbool.h>
 struct Frame
 {
     int page_number;
@@ -33,7 +33,7 @@ void main()
         FRAMES[i].frame_counter = 0;
     }
 
-    int pageIsPresent;
+    bool pageIsPresent;
     int frame_pointer = 0;
     int frame_counter = 0;
     int page_faults = 0;
@@ -41,24 +41,24 @@ void main()
 
     for (int i = 0; i < total_pages; i++)
     {
-        pageIsPresent = 0;
+        pageIsPresent = false;
 
         // Check if the page is present in the frame
         for (int j = 0; j < total_frames; j++)
         {
             if (FRAMES[j].page_number == PAGES[i])
             {
-                pageIsPresent = 1;
+                pageIsPresent = true;
                 break;
             }
         }
 
         // Page is not present
-        if (pageIsPresent == 0)
+        if (!pageIsPresent)
         {
             page_faults++;
 
-            int freeSpace = 0;
+            bool freeSpace = false;
             int freeSpacePointer;
 
             // Check if there is any free space in the frame
@@ -66,14 +66,14 @@ void main()
             {
                 if (FRAMES[j].page_number == -1)
                 {
-                    freeSpace = 1;
+                    freeSpace = true;
                     freeSpacePointer = j;
                     break;
                 }
             }
 
             // Frame has free space
-            if (freeSpace == 1)
+            if (freeSpace)
             {
                 frame_counter++;
                 FRAMES[freeSpacePointer].page_number = PAGES[i];
