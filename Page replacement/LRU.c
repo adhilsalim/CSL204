@@ -1,5 +1,11 @@
 #include <stdio.h>
 
+struct Frame
+{
+    int page_number;
+    int frame_counter;
+};
+
 void main()
 {
     int total_frames, total_pages;
@@ -10,7 +16,7 @@ void main()
     printf("Enter the number of pages: ");
     scanf("%d", &total_pages);
 
-    int FRAMES[2][total_frames]; // 2 rows, 1st row for page number, 2nd row for frame counter
+    struct Frame FRAMES[total_frames];
     int PAGES[total_pages];
 
     // Input the pages
@@ -21,12 +27,10 @@ void main()
     }
 
     // Initialize the frames
-    for (int i = 0; i < 2; i++)
+    for (int i = 0; i < total_frames; i++)
     {
-        for (int j = 0; j < total_frames; j++)
-        {
-            FRAMES[i][j] = -1;
-        }
+        FRAMES[i].page_number = -1;
+        FRAMES[i].frame_counter = 0;
     }
 
     int pageIsPresent;
@@ -34,23 +38,22 @@ void main()
     int frame_counter = 0;
     int page_faults = 0;
     int page_hit = 0;
-    int testCounter = 1;
 
     for (int i = 0; i < total_pages; i++)
     {
         pageIsPresent = 0;
 
-        // check if the page is present in the frame
+        // Check if the page is present in the frame
         for (int j = 0; j < total_frames; j++)
         {
-            if (FRAMES[0][j] == PAGES[i])
+            if (FRAMES[j].page_number == PAGES[i])
             {
                 pageIsPresent = 1;
                 break;
             }
         }
 
-        // page is not present
+        // Page is not present
         if (pageIsPresent == 0)
         {
             page_faults++;
@@ -58,10 +61,10 @@ void main()
             int freeSpace = 0;
             int freeSpacePointer;
 
-            // check if there is any free space in the frame
+            // Check if there is any free space in the frame
             for (int j = 0; j < total_frames; j++)
             {
-                if (FRAMES[0][j] == -1)
+                if (FRAMES[j].page_number == -1)
                 {
                     freeSpace = 1;
                     freeSpacePointer = j;
@@ -69,43 +72,44 @@ void main()
                 }
             }
 
-            // frame has free space
+            // Frame has free space
             if (freeSpace == 1)
             {
-                frame_counter += 1;
-                FRAMES[0][freeSpacePointer] = PAGES[i];
-                FRAMES[1][freeSpacePointer] = frame_counter;
+                frame_counter++;
+                FRAMES[freeSpacePointer].page_number = PAGES[i];
+                FRAMES[freeSpacePointer].frame_counter = frame_counter;
                 continue;
             }
 
-            // frame has no free space
-            int minCounter = 0;
+            // Frame has no free space
+            int minCounter = FRAMES[0].frame_counter;
+            frame_pointer = 0;
+
             for (int k = 0; k < total_frames; k++)
             {
-                if (FRAMES[1][k] < minCounter)
+                if (FRAMES[k].frame_counter < minCounter)
                 {
-                    printf("%d is less than %d\n", FRAMES[1][k], minCounter);
-                    minCounter = FRAMES[1][k];
+                    minCounter = FRAMES[k].frame_counter;
                     frame_pointer = k;
                 }
             }
 
-            // replace the frame
-            frame_counter += 1;
-            FRAMES[0][frame_pointer] = PAGES[i];
-            FRAMES[1][frame_pointer] = frame_counter;
+            // Replace the frame
+            frame_counter++;
+            FRAMES[frame_pointer].page_number = PAGES[i];
+            FRAMES[frame_pointer].frame_counter = frame_counter;
         }
         else
         {
             page_hit++;
 
-            // update the frame counter
+            // Update the frame counter
             for (int k = 0; k < total_frames; k++)
             {
-                if (FRAMES[0][k] == PAGES[i])
+                if (FRAMES[k].page_number == PAGES[i])
                 {
-                    frame_counter += 1;
-                    FRAMES[1][k] = frame_counter;
+                    frame_counter++;
+                    FRAMES[k].frame_counter = frame_counter;
                     break;
                 }
             }
