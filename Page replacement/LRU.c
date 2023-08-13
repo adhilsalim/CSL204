@@ -82,7 +82,7 @@ void main()
             }
 
             // Frame has no free space
-            int minCounter = FRAMES[0].frame_counter;
+            int minCounter = 0;
             frame_pointer = 0;
 
             for (int k = 0; k < total_frames; k++)
