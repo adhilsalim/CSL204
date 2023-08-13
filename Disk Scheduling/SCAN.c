@@ -17,7 +17,6 @@ int getSeek(int postion_1, int position_2)
 
 void main()
 {
-
     int head_pos, disk_range, number_of_tracks;
 
     // get head position, disk range, number of tracks
@@ -58,6 +57,7 @@ void main()
     int L_TRACK[number_of_tracks]; // lower tracks
 
     H_TRACK[0] = head_pos;
+
     int h_track_pointer = 1;
     int l_track_pointer = 0;
 

@@ -4,80 +4,87 @@ typedef struct
 {
     int AT;
     int BT;
-    int RT; // Remaining Time
+    int RT;
     int CT;
     int TAT;
     int WT;
     int PID;
 } Process;
 
-int main()
+void main()
 {
-    int total_processes;
-    int time_quantum;
 
+    int total_process;
     printf("Enter the number of processes: ");
-    scanf("%d", &total_processes);
+    scanf("%d", &total_process);
 
-    // Array of processes
-    Process p[total_processes];
+    Process P[total_process];
 
-    // Input the data for each process
-    for (int i = 0; i < total_processes; i++)
+    // assuming arrival time is 0
+    printf("enter the process details: \n");
+    for (int i = 0; i < total_process; i++)
     {
-        p[i].PID = i + 1;
-
-        printf("Enter the arrival time for process %d: ", p[i].PID);
-        scanf("%d", &p[i].AT);
-
-        printf("Enter the burst time for process %d: ", p[i].PID);
-        scanf("%d", &p[i].BT);
-
-        p[i].RT = p[i].BT; // Initialize the remaining time to burst time
+        printf("Enter the burst time for process %d: ", i + 1);
+        scanf("%d", &P[i].BT);
+        P[i].AT = 0;
+        P[i].RT = P[i].BT;
+        P[i].PID = i + 1;
     }
 
+    int time_quantum;
     printf("Enter the time quantum: ");
     scanf("%d", &time_quantum);
 
-    int clock_time = 0;
-    int completed_processes = 0;
+    int current_time = 0;
+    int current_process = 0;
+    int completed_process = 0;
 
-    while (completed_processes < total_processes)
+    while (completed_process < total_process)
     {
-
-        for (int i = 0; i < total_processes; i++)
+        // check if the current process is completed or not based on the remaining time RT
+        if (P[current_process].RT == 0)
         {
-            // If the process is not completed and has arrived
-            if (p[i].RT > 0)
+            current_process++;
+        }
+        else
+        {
+            // now we know that RT is not zero
+            // check if the RT is less than time quantum or not
+            if (P[current_process].RT <= time_quantum)
             {
-                // If the remaining time is less than or equal to the time quantum
-                if (p[i].RT <= time_quantum)
-                {
-                    // remember there is no cpu idle time in RR
-                    clock_time += p[i].RT;
+                // this means that the process will be completed in this time quantum
+                current_time += P[current_process].RT;
+                P[current_process].RT = 0;
 
-                    p[i].RT = 0;
-                    p[i].CT = clock_time;
+                // update the CT, TAT and WT
+                P[current_process].CT = current_time;
+                P[current_process].TAT = P[current_process].CT; // since AT is 0
+                P[current_process].WT = P[current_process].TAT - P[current_process].BT;
 
-                    p[i].TAT = p[i].CT - p[i].AT;
-                    p[i].WT = p[i].TAT - p[i].BT;
-
-                    completed_processes++;
-                }
-                else // If the remaining time is greater than the time quantum
-                {
-                    clock_time += time_quantum;
-                    p[i].RT -= time_quantum;
-                }
+                completed_process++;
             }
+            else
+            {
+                // this means that the process will not be completed in this time quantum
+                current_time += time_quantum;
+                P[current_process].RT -= time_quantum;
+            }
+
+            current_process = (current_process + 1) % total_process;
         }
     }
 
-    printf("\nProcess\tAT\tBT\tCT\tTAT\tWT\n");
-    for (int i = 0; i < total_processes; i++)
+    // print the details
+    float avg_TAT = 0;
+    float avg_WT = 0;
+    printf("PID\tAT\tBT\tCT\tTAT\tWT\n");
+    for (int i = 0; i < total_process; i++)
     {
-        printf("%d\t%d\t%d\t%d\t%d\t%d\n", p[i].PID, p[i].AT, p[i].BT, p[i].CT, p[i].TAT, p[i].WT);
+        printf("%d\t%d\t%d\t%d\t%d\t%d\n", P[i].PID, P[i].AT, P[i].BT, P[i].CT, P[i].TAT, P[i].WT);
+        avg_TAT += P[i].TAT;
+        avg_WT += P[i].WT;
     }
 
-    return 0;
+    printf("Average TAT: %f\n", avg_TAT / total_process);
+    printf("Average WT: %f\n", avg_WT / total_process);
 }
