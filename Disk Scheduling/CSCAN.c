@@ -28,7 +28,7 @@ void main()
     printf("Enter the current of head position: ");
     scanf("%d", &head_pos);
 
-    printf("Enter total number of tracks: ");
+    printf("Enter total number of tracks (disk range): ");
     scanf("%d", &disk_range); // In this program if the total number of tracks is 100 then the tracks will be 0-99
 
     printf("Enter the number of tracks to access: ");
@@ -105,17 +105,17 @@ void main()
     So adding both extremes in the lower and higher track arrays respectively
     */
 
-    L_TRACK[l_track_pointer] = disk_range - 1; // add the last element of the lower track to the last track of the disk range
+    L_TRACK[0] = disk_range - 1; // add the first element of the lower track to the first track ie 0
     l_track_pointer++;
 
-    L_TRACK[0] = 0; // add the first element of the lower track to the first track ie 0
+    L_TRACK[1] = 0; // add the second element of the lower track to the second track ie 1
     l_track_pointer++;
 
     H_TRACK[h_track_pointer] = disk_range - 1; // add the last element of the higher track to the last track of the disk range
     h_track_pointer++;
 
     // copy the tracks into the lower track array
-    for (int i = 1; i < number_of_tracks; i++)
+    for (int i = 0; i < number_of_tracks; i++)
     {
         if (TRACKS[i] < head_pos)
         {
@@ -150,12 +150,12 @@ void main()
     }
 
     // get the seek for the lower track array
-    for (int i = l_track_pointer - 1; i > 0; i--)
+    for (int i = 0; i < l_track_pointer - 1; i++)
     {
-        seek = getSeek(L_TRACK[i], L_TRACK[i - 1]);
+        seek = getSeek(L_TRACK[i], L_TRACK[i + 1]);
         seek_sum += seek;
-        printf("head moves from %d to %d, with seek %d\n", L_TRACK[i], L_TRACK[i - 1], seek);
+        printf("head moves from %d to %d, with seek %d\n", L_TRACK[i], L_TRACK[i + 1], seek);
     }
 
-    printf("\nTOTAL SEEKS: %d\nAVG SEEK: %2.f\n", seek_sum, (float)(seek_sum / number_of_tracks));
+    printf("\nTOTAL SEEKS: %d\nAVG SEEK: %2.f\n", seek_sum, (float)(seek_sum / number_of_tracks)); // print the total seek and avg seek
 }
