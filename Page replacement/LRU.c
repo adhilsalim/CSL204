@@ -34,8 +34,10 @@ void main()
     }
 
     bool pageIsPresent;
+
     int frame_pointer = 0;
     int frame_counter = 0;
+
     int page_faults = 0;
     int page_hit = 0;
 
@@ -82,7 +84,7 @@ void main()
             }
 
             // Frame has no free space
-            int minCounter = 0;
+            int minCounter = 9999;
             frame_pointer = 0;
 
             for (int k = 0; k < total_frames; k++)
