@@ -50,8 +50,6 @@ void main()
         pageIsPresent = false;
 
         // Check if the page is present in the frame
-        printf("Checking for page %d\n", PAGES[i]);
-
         for (int j = 0; j < total_frames; j++)
         {
             if (FRAMES[j].page_number == PAGES[i])
@@ -65,12 +63,10 @@ void main()
         if (!pageIsPresent)
         {
             page_faults++;
-            printf("Page fault for page %d\n", PAGES[i]);
             bool freeSpace = false;
             int freeSpacePointer;
 
             // Check if there is any free space in the frame
-            printf("Checking for free space\n");
             for (int j = 0; j < total_frames; j++)
             {
                 if (FRAMES[j].page_number == -1)
@@ -84,23 +80,14 @@ void main()
             // Frame has free space
             if (freeSpace)
             {
-                printf("Free space found\n");
                 arrivalCount++;
                 FRAMES[freeSpacePointer].page_number = PAGES[i];
                 FRAMES[freeSpacePointer].frequency = 1;
                 FRAMES[freeSpacePointer].arrivalCount = arrivalCount;
-
-                // print the frames
-                for (int j = 0; j < total_frames; j++)
-                {
-                    printf("%d\t %d\t %d\t\n", FRAMES[j].page_number, FRAMES[j].frequency, FRAMES[j].arrivalCount);
-                }
-
                 continue;
             }
 
             // Frame has no free space
-            printf("No free space found\n");
             int minFrequency = 9999;
             frame_pointer = 0;
 
@@ -113,10 +100,8 @@ void main()
                     frame_pointer = k;
                 }
             }
-            printf("Frame with minimum frequency: %d with frequency %d\n", frame_pointer, minFrequency);
 
             // find the frames with same minimum frequency
-            printf("Finding frames with same minimum frequency\n");
             int MIN_FREQUENCY_FRAMES[2][total_frames];
             int min_frequency_frame_pointer = 0;
             for (int k = 0; k < total_frames; k++)
@@ -129,15 +114,7 @@ void main()
                 }
             }
 
-            // print the frames with same minimum frequency
-            printf("Frames with same minimum frequency\n");
-            for (int k = 0; k < min_frequency_frame_pointer; k++)
-            {
-                printf("INDEX\t ARRIVAL\n%d\t %d\n", MIN_FREQUENCY_FRAMES[0][k], MIN_FREQUENCY_FRAMES[1][k]);
-            }
-
             // find the frame with the minimum arrival count
-            printf("Finding frame with minimum arrival count\n");
             int minArrivalCount = 9999;
             int minArrivalCountFramePointer = 0;
             for (int k = 0; k < min_frequency_frame_pointer; k++)
@@ -148,25 +125,18 @@ void main()
                     minArrivalCountFramePointer = k;
                 }
             }
-            printf("Index of frame with minimum arrival count: %d with arrival count %d\n", MIN_FREQUENCY_FRAMES[0][minArrivalCountFramePointer], minArrivalCount);
-            for (int k = 0; k < total_frames; k++)
-            {
-                printf("%d\t %d\t %d\t\n", FRAMES[k].page_number, FRAMES[k].frequency, FRAMES[k].arrivalCount);
-            }
 
             // Replace the frame
             arrivalCount++;
             FRAMES[MIN_FREQUENCY_FRAMES[0][minArrivalCountFramePointer]].page_number = PAGES[i];
             FRAMES[MIN_FREQUENCY_FRAMES[0][minArrivalCountFramePointer]].frequency = 1;
             FRAMES[MIN_FREQUENCY_FRAMES[0][minArrivalCountFramePointer]].arrivalCount = arrivalCount;
-            printf("Frame replaced\n");
         }
         else
         {
             page_hit++;
 
             // update the frequency and arrival count of the page
-            printf("Page hit for page %d\n", PAGES[i]);
             for (int j = 0; j < total_frames; j++)
             {
                 if (FRAMES[j].page_number == PAGES[i])
@@ -176,12 +146,6 @@ void main()
                     break;
                 }
             }
-        }
-
-        // print the frames
-        for (int j = 0; j < total_frames; j++)
-        {
-            printf("%d\t %d\t %d\t\n", FRAMES[j].page_number, FRAMES[j].frequency, FRAMES[j].arrivalCount);
         }
     }
 
