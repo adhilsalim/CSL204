@@ -44,7 +44,7 @@ void main()
         // check if the current process is completed or not based on the remaining time RT
         if (P[current_process].RT == 0)
         {
-            current_process++;
+            current_process = (current_process + 1) % total_process;
         }
         else
         {
