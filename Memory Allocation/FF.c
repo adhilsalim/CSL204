@@ -1,5 +1,22 @@
-#include <stdio.h>
+/*
+    First Fit Algorithm
+        SAMPLE INPUT:
 
+        Enter the number of processes: 4
+        Enter the total memory available: 5
+        Enter the memory required for each process:
+        Process 1: 212
+        Process 2: 417
+        Process 3: 112
+        Process 4: 426
+        Enter the memory available for each block:
+        Block 1: 100
+        Block 2: 500
+        Block 3: 200
+        Block 4: 300
+        Block 5: 600
+*/
+#include <stdio.h>
 void main()
 {
 
