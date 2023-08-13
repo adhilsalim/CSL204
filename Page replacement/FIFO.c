@@ -27,7 +27,9 @@ void main()
     }
 
     int pageIsPresent;
+
     int frame_pointer = 0;
+
     int page_faults = 0;
     int page_hit = 0;
 

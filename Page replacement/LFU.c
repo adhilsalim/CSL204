@@ -104,6 +104,7 @@ void main()
             // find the frames with same minimum frequency
             int MIN_FREQUENCY_FRAMES[2][total_frames];
             int min_frequency_frame_pointer = 0;
+
             for (int k = 0; k < total_frames; k++)
             {
                 if (FRAMES[k].frequency == minFrequency)
