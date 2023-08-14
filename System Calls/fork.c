@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <unistd.h>
-#include <sys/wait.h>
+#include <unistd.h>   // for fork()
+#include <sys/wait.h> // for wait()
 
 int main()
 {
@@ -20,7 +20,7 @@ int main()
     else // fork() returns the process id of the child to the parent process
     {
         printf("Process id is - %d\n", getpid());
-        wait(NULL);
+        wait(NULL); // wait() causes the parent process to wait until the child process has finished executing
         exit(0);
     }
     return 0;
