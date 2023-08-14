@@ -3,6 +3,7 @@
 int main()
 {
     struct stat sfile;
+
     if (stat("hello.txt", &sfile) == 0)
     {
         printf("st_mode=%o\n", sfile.st_mode);

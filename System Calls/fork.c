@@ -2,9 +2,11 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <sys/wait.h>
+
 int main()
 {
-    int pid : pid = fork();
+    int pid = fork();
+
     if (pid < 0)
     {
         printf("Fork failed");
@@ -17,7 +19,7 @@ int main()
     }
     else
     {
-        printf "Process id is -%d\n", getpid();
+        printf("Process id is - %d\n", getpid());
         wait(NULL);
         exit(0);
     }
