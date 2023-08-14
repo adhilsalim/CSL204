@@ -54,6 +54,7 @@ int main()
         exit(1);
     }
 
+    // shmctl = shared memory control
     shmctl(shmid, IPC_RMID, 0);
 
     return 0;
