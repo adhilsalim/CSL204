@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-int mutex = 1, full = 0, empty = 3, x = 0;
+int mutex = 1, full = 0, empty = 0, x = 0;
 
 // Function prototypes
 int wait(int);
@@ -23,14 +23,14 @@ int main()
         switch (n)
         {
         case 1:
-            if ((mutex == 1) && (empty != 0))
+            if ((mutex == 1) && (full != 3))
                 producer();
             else
                 printf("BUFFER IS FULL");
             break;
 
         case 2:
-            if ((mutex == 1) && (full != 0))
+            if ((mutex == 1) && (empty != 0))
                 consumer();
             else
                 printf("BUFFER IS EMPTY");
