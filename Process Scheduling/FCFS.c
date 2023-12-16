@@ -102,8 +102,8 @@ void main()
 
     // printing the TAT and WT for each process
     // also calculating the average TAT and WT
-    float avg_TAT = 0;
-    float avg_WT = 0;
+    float total_TAT = 0;
+    float total_WT = 0;
 
     for (int i = 0; i < total_processes; i++)
     {
@@ -112,11 +112,11 @@ void main()
         printf("Waiting time: %d\n", p[i].WT);
         printf("\n");
 
-        avg_TAT += p[i].TAT;
-        avg_WT += p[i].WT;
+        total_TAT += p[i].TAT;
+        total_WT += p[i].WT;
     }
 
     // printing the average TAT and WT
-    printf("Average turn around time: %2.f\n", avg_TAT / total_processes);
-    printf("Average waiting time: %2.f\n", avg_WT / total_processes);
+    printf("Average turn around time: %2.f\n", total_TAT / total_processes);
+    printf("Average waiting time: %2.f\n", total_WT / total_processes);
 }

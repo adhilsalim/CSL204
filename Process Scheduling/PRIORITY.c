@@ -64,7 +64,7 @@ void main()
             2. if arrival time is same and priority of jth process is greater than j+1th process
             3. if arrival time and priority is same and burst time of jth process is greater than j+1th process
             */
-            if (p[j].AT > p[j + 1].AT || p[j].AT == p[j + 1].AT && p[j].PR > p[j + 1].PR || (p[j].AT == p[j + 1].AT && p[j].PR == p[j + 1].PR) && p[j].BT > p[j + 1].BT)
+            if ((p[j].AT > p[j + 1].AT) || (p[j].AT == p[j + 1].AT && p[j].PR > p[j + 1].PR) || (p[j].AT == p[j + 1].AT && p[j].PR == p[j + 1].PR && p[j].BT > p[j + 1].BT))
             {
                 Process temp = p[j];
                 p[j] = p[j + 1];
@@ -110,21 +110,19 @@ void main()
 
     // printing the TAT and WT for each process
     // also calculating the average TAT and WT
-    float avg_TAT = 0;
-    float avg_WT = 0;
+    float total_TAT = 0;
+    float total_WT = 0;
 
+    // print the process details
+    printf("\nPID\tAT\tBT\tPR\tCT\tWT\tTAT\t\n");
     for (int i = 0; i < total_processes; i++)
     {
-        printf("Process %d:\n", p[i].PID);
-        printf("Turn around time: %d\n", p[i].TAT);
-        printf("Waiting time: %d\n", p[i].WT);
-        printf("\n");
-
-        avg_TAT += p[i].TAT;
-        avg_WT += p[i].WT;
+        printf("%d\t%d\t%d\t%d\t%d\t%d\t%d\t\n", p[i].PID, p[i].AT, p[i].BT, p[i].PR, p[i].CT, p[i].WT, p[i].TAT);
+        total_WT += p[i].WT;
+        total_TAT += p[i].TAT;
     }
 
     // printing the average TAT and WT
-    printf("Average turn around time: %2.f\n", avg_TAT / total_processes);
-    printf("Average waiting time: %2.f\n", avg_WT / total_processes);
+    printf("Average turn around time: %2.f\n", total_TAT / total_processes);
+    printf("Average waiting time: %2.f\n", total_WT / total_processes);
 }
