@@ -56,8 +56,8 @@ void main()
 
     int seek_sum = 0;
 
-    for (int i = 0; i <= number_of_tracks - 1; i++)
-    { // -1 cuz we don't have the last element after array bound
+    for (int i = 0; i <= number_of_tracks - 1; i++) // -1 because when we reach the last track, TRACKS[i + 1] will be out of range
+    {
         int seek = getSeek(TRACKS[i], TRACKS[i + 1]);
         seek_sum += seek;
         printf("Head moves from %d to %d with seek %d\n", TRACKS[i], TRACKS[i + 1], seek);
