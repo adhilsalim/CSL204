@@ -36,8 +36,8 @@ void main()
     scanf("%d", &time_quantum);
 
     int current_time = 0;
-    int current_process = 0;
     int completed_process = 0;
+    int current_process = 0;
 
     while (completed_process < total_process)
     {
@@ -75,16 +75,16 @@ void main()
     }
 
     // print the details
-    float avg_TAT = 0;
-    float avg_WT = 0;
+    float total_TAT = 0;
+    float total_WT = 0;
     printf("PID\tAT\tBT\tCT\tTAT\tWT\n");
     for (int i = 0; i < total_process; i++)
     {
         printf("%d\t%d\t%d\t%d\t%d\t%d\n", P[i].PID, P[i].AT, P[i].BT, P[i].CT, P[i].TAT, P[i].WT);
-        avg_TAT += P[i].TAT;
-        avg_WT += P[i].WT;
+        total_TAT += P[i].TAT;
+        total_WT += P[i].WT;
     }
 
-    printf("Average TAT: %f\n", avg_TAT / total_process);
-    printf("Average WT: %f\n", avg_WT / total_process);
+    printf("Average TAT: %f\n", total_TAT / total_process);
+    printf("Average WT: %f\n", total_WT / total_process);
 }
